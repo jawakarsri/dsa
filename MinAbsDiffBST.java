@@ -1,29 +1,28 @@
-class Solution
-{
+class Solution {
     int prev = -1;
     int minAns = Integer.MAX_VALUE;
-    public:
-    int absolute_diff(Node root)
-    {
-        //Your code here
+    
+    public int absolute_diff(Node root) {
+        // Call helper method to traverse the tree and calculate the minimum absolute difference
         helper(root);
         return minAns;
     }
     
-    void helper(Node root){
-        if(root == null){
+    void helper(Node root) {
+        if (root == null) {
             return;
         }
         
-        solve(root.left);
-        if(prev == -1){
-            prev = root.data;
-        }
-        else{
-            minAns = Math.min(minAns, root.data - prev);
-        }
+        // Traverse left subtree
+        helper(root.left);
         
-        solve(root.right);
+        // Update minAns if needed
+        if (prev != -1) {
+            minAns = Math.min(minAns, Math.abs(root.data - prev));
+        }
+        prev = root.data;
+        
+        // Traverse right subtree
+        helper(root.right);
     }
-
-};
+}
